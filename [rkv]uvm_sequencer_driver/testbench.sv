@@ -29,6 +29,9 @@ class flat_seq extends uvm_sequence #(bus_trans);
     uvm_sequence_item tmp;
     bus_trans req, rsp;
     tmp = create_item(bus_trans::get_type(), m_sequencer, "req");
+    // create_item() return uvm_sequence_item object (base),
+    // in this case, we still use base handle to its, then we need to access derived member
+    // so we still need $cast() to perform downcasting
     `uvm_info("SEQ", $sformatf("tmp data type is %s", tmp.get_type_name()), UVM_LOW)
     void'($cast(req, tmp));
     start_item(req);
